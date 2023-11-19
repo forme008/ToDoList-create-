@@ -1,22 +1,27 @@
 const elForm = document.querySelector(".form")
-const elFormInput = document.querySelector(".form_input")
-const elpaper = document.querySelector(".paper")
-const elTemplate = document.querySelector(".template ")
+const elFormInput = elForm.querySelector(".form_input")
+const elPaper = document.querySelector(".paper")
+const elTemplate = document.querySelector(".template").content;
 
-let todoArr = [1, 2, 3]
+let todoArr = []
 
-function renderTodo(arr, paper) {  
-      elpaper.innerHTML = null
-
-    arr.map(item => {
+function renderTodo(arr, Paper) {
+    Paper.innerHTML = null
+    arr.map(subject => {
         let cloneTemplate = elTemplate.cloneNode(true)
 
-        paperContent = cloneTemplate.querySelector(".content")
-        elpaper.appendChild(cloneTemplate)
-    })
-}  
+        let paperSubjectContent = cloneTemplate.querySelector(".content")
 
-renderTodo(todoArr, elpaper)
+        paperSubjectContent.textContent = subject.content
+        elPaper.appendChild(cloneTemplate)
+    });
+}
+
+renderTodo(todoArr, elPaper)
+
+
+
+
 
 
 elForm.addEventListener("submit", e => {
@@ -26,10 +31,13 @@ elForm.addEventListener("submit", e => {
     todoArr.push({
         id: new Date().getMilliseconds(),
         content: inputValue,
-        isCompleted: false, elpaper
+        isCompleted: false
     })
+
+    console.log(todoArr);
+
+    renderTodo(todoArr, elPaper);
+
     elFormInput.value = null
     elFormInput.focus()
-
-    renderTodo(todoArr)
 })
